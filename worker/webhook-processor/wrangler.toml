@@ -1,0 +1,33 @@
+name = "pai-webhook-processor"
+main = "src/index.ts"
+compatibility_date = "2024-12-01"
+compatibility_flags = ["nodejs_compat"]
+
+# Environment variables (non-secret)
+[vars]
+ENVIRONMENT = "production"
+JWT_ISSUER = "pai-email-agent"
+JWT_AUDIENCE = "pai-agents"
+DOMAIN = "axiomid.app"
+WEBHOOK_BATCH_SIZE = "10"
+WEBHOOK_BATCH_INTERVAL_MS = "5000"
+
+# KV Namespaces
+[[kv_namespaces]]
+binding = "EMAIL_DO_NOT_USE"
+id = "<EMAIL_KV_ID>"
+preview_id = "<EMAIL_KV_PREVIEW_ID>"
+
+[[kv_namespaces]]
+binding = "AGENT_KV"
+id = "<AGENT_KV_ID>"
+preview_id = "<AGENT_KV_PREVIEW_ID>"
+
+[[kv_namespaces]]
+binding = "WEBHOOK_KV"
+id = "<WEBHOOK_KV_ID>"
+preview_id = "<WEBHOOK_KV_PREVIEW_ID>"
+
+# Build
+[build]
+command = "npm run build"

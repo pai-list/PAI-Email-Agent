@@ -1,0 +1,49 @@
+name: Deploy Worker
+
+on:
+  workflow_dispatch:
+    inputs:
+      environment:
+        description: 'Environment to deploy to'
+        required: true
+        default: 'preview'
+        type: choice
+        options:
+          - preview
+          - production
+
+jobs:
+  deploy:
+    name: Deploy to Cloudflare
+    runs-on: ubuntu-latest
+    environment: ${{ github.event.inputs.environment }}
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v4
+
+      - name: Setup Bun
+        uses: oven-sh/setup-bun@v1
+
+      - name: Install Worker deps
+        run: |
+          cd worker
+          bun install
+
+      - name: Type-check
+        run: |
+          cd worker
+          npx wrangler types --env-interface 2>&1 | head -20
+
+      - name: Deploy
+        uses: cloudflare/wrangler-action@v3
+        with:
+          apiToken: ${{ secrets.CF_API_TOKEN }}
+          accountId: ${{ secrets.CF_ACCOUNT_ID }}
+          workingDirectory: worker
+          command: deploy --env ${{ github.event.inputs.environment }}
+
+      - name: Post-deploy verification
+        if: github.event.inputs.environment == 'production'
+        run: |
+          sleep 5
+          curl -s https://agent-email-router.pai-list.workers.dev/health || echo "Health check endpoint not implemented yet"

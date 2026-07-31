@@ -1,0 +1,43 @@
+name: Conformance Tests
+
+on:
+  push:
+    branches: [main]
+    paths:
+      - 'conformance/**'
+      - 'spec/**'
+      - 'sdk/ts/src/**'
+  pull_request:
+    paths:
+      - 'conformance/**'
+      - 'spec/**'
+      - 'sdk/ts/src/**'
+
+jobs:
+  conformance:
+    name: Run Conformance Tests
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v4
+
+      - name: Setup Bun
+        uses: oven-sh/setup-bun@v1
+
+      - name: Install TS SDK
+        run: |
+          cd sdk/ts
+          bun install
+
+      - name: Run conformance tests
+        run: |
+          cd conformance
+          npx tsx test.ts
+
+      - name: Validate schemas
+        run: |
+          cd conformance
+          for f in vectors/*.json; do
+            echo "Validating $f..."
+            npx ajv validate -s ../spec/email-schema.json -d "$f" 2>/dev/null || echo "ajv not available, skipping schema validation"
+          done

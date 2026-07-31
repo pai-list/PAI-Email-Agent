@@ -1,0 +1,63 @@
+<svg width="1200" height="300" viewBox="0 0 1200 300" xmlns="http://www.w3.org/2000/svg">
+  <defs>
+    <linearGradient id="bgGrad" x1="0%" y1="0%" x2="100%" y2="100%">
+      <stop offset="0%" style="stop-color:#0f172a"/>
+      <stop offset="100%" style="stop-color:#1e1b4b"/>
+    </linearGradient>
+    <linearGradient id="textGrad" x1="0%" y1="0%" x2="100%" y2="0%">
+      <stop offset="0%" style="stop-color:#6366f1"/>
+      <stop offset="50%" style="stop-color:#8b5cf6"/>
+      <stop offset="100%" style="stop-color:#06b6d4"/>
+    </linearGradient>
+    <linearGradient id="accentGrad" x1="0%" y1="0%" x2="100%" y2="0%">
+      <stop offset="0%" style="stop-color:#F38020"/>
+      <stop offset="100%" style="stop-color:#22c55e"/>
+    </linearGradient>
+    <filter id="glow" x="-50%" y="-50%" width="200%" height="200%">
+      <feGaussianBlur stdDeviation="4" result="blur"/>
+      <feMerge>
+        <feMergeNode in="blur"/>
+        <feMergeNode in="SourceGraphic"/>
+      </feMerge>
+    </filter>
+  </defs>
+
+  <rect width="1200" height="300" fill="url(#bgGrad)"/>
+  
+  <!-- Decorative elements -->
+  <circle cx="100" cy="150" r="80" fill="url(#textGrad)" opacity="0.1"/>
+  <circle cx="1100" cy="150" r="100" fill="url(#accentGrad)" opacity="0.1"/>
+  
+  <!-- Main title -->
+  <text x="600" y="130" text-anchor="middle" font-family="-apple-system, BlinkMacSystemFont, Segoe UI, Roboto" font-size="56" font-weight="800" fill="url(#textGrad)" filter="url(#glow)">
+    PAI Email Agent
+  </text>
+  
+  <!-- Subtitle -->
+  <text x="600" y="185" text-anchor="middle" font-family="inherit" font-size="20" fill="#94a3b8">
+    Zero-Cost Email Infrastructure for AI Agents
+  </text>
+  
+  <!-- Tagline -->
+  <text x="600" y="220" text-anchor="middle" font-family="inherit" font-size="14" fill="url(#accentGrad)">
+    Cloudflare Email Routing (Free ∞ Inbound) + Resend (3,000/mo Free Outbound)
+  </text>
+  
+  <!-- Badges row -->
+  <g transform="translate(300, 250)" font-family="inherit" font-size="13">
+    <rect x="0" y="-12" width="140" height="24" rx="12" fill="rgba(34,197,94,0.2)" stroke="#22c55e"/>
+    <text x="70" y="4" text-anchor="middle" font-weight="600" fill="#22c55e">$0/month</text>
+    
+    <rect x="160" y="-12" width="160" height="24" rx="12" fill="rgba(243,128,32,0.2)" stroke="#F38020"/>
+    <text x="240" y="4" text-anchor="middle" font-weight="600" fill="#F38020">Cloudflare Workers</text>
+    
+    <rect x="340" y="-12" width="140" height="24" rx="12" fill="rgba(0,0,0,0.2)" stroke="#333"/>
+    <text x="410" y="4" text-anchor="middle" font-weight="600" fill="white">Resend</text>
+    
+    <rect x="500" y="-12" width="160" height="24" rx="12" fill="rgba(99,102,241,0.2)" stroke="#6366f1"/>
+    <text x="580" y="4" text-anchor="middle" font-weight="600" fill="#818cf8">OpenIdentity Spec</text>
+    
+    <rect x="680" y="-12" width="120" height="24" rx="12" fill="rgba(139,92,246,0.2)" stroke="#8b5cf6"/>
+    <text x="740" y="4" text-anchor="middle" font-weight="600" fill="#c4b5fd">Genetic Passport</text>
+  </g>
+</svg>

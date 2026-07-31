@@ -1,0 +1,38 @@
+{
+  "name": "agent-email-router",
+  "version": "0.1.0",
+  "description": "Cloudflare Worker for PAI Email Agent - Catch-all email routing to agents",
+  "main": "src/index.ts",
+  "scripts": {
+    "dev": "wrangler dev",
+    "deploy": "wrangler deploy",
+    "deploy:dry": "wrangler deploy --dry-run",
+    "tail": "wrangler tail",
+    "type-check": "wrangler types",
+    "kv:create": "wrangler kv namespace create PAI_RECEIPTS",
+    "kv:create:preview": "wrangler kv namespace create PAI_RECEIPTS --preview",
+    "secret:put": "wrangler secret put",
+    "test": "vitest run"
+  },
+  "keywords": [
+    "cloudflare",
+    "workers",
+    "email",
+    "agent",
+    "pai"
+  ],
+  "author": "PAI Universe",
+  "license": "MIT",
+  "dependencies": {
+    "@pai/email-agent": "file:../../sdk/ts"
+  },
+  "devDependencies": {
+    "@cloudflare/workers-types": "^4.202400.0",
+    "typescript": "^5.3.0",
+    "vitest": "^1.0.0",
+    "wrangler": "^3.0.0"
+  },
+  "engines": {
+    "node": ">=20.0.0"
+  }
+}

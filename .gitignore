@@ -1,0 +1,64 @@
+# Dependencies
+node_modules/
+.pnp
+.pnp.js
+
+# Build outputs
+dist/
+build/
+*.tsbuildinfo
+
+# Wrangler
+.wrangler/
+worker-configuration.d.ts
+
+# Environment files
+.env
+.env.local
+.env.*.local
+.env.production
+.env.staging
+.env.development
+
+# IDE
+.vscode/
+.idea/
+*.swp
+*.swo
+*~
+
+# OS
+.DS_Store
+Thumbs.db
+
+# Logs
+*.log
+npm-debug.log*
+yarn-debug.log*
+yarn-error.log*
+pnpm-debug.log*
+
+# Testing
+coverage/
+.nyc_output/
+
+# Misc
+*.tsbuildinfo
+.eslintcache
+.stylelintcache
+
+# Local secrets (never commit)
+**/secrets/
+**/*.pem
+**/*.key
+**/*.crt
+
+# Diagram generation
+diagrams/*.svg
+diagrams/*.png
+!diagrams/*.mmd
+
+# Temporary files
+tmp/
+temp/
+*.tmp

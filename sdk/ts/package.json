@@ -1,0 +1,57 @@
+{
+  "name": "@pai/email-agent",
+  "version": "0.1.0",
+  "description": "TypeScript SDK for PAI Email Agent - Zero-cost email infrastructure for AI agents",
+  "main": "dist/index.js",
+  "module": "dist/index.mjs",
+  "types": "dist/index.d.ts",
+  "exports": {
+    ".": {
+      "import": "./dist/index.mjs",
+      "require": "./dist/index.js",
+      "types": "./dist/index.d.ts"
+    },
+    "./templates": {
+      "import": "./dist/templates/index.mjs",
+      "require": "./dist/templates/index.js",
+      "types": "./dist/templates/index.d.ts"
+    }
+  },
+  "scripts": {
+    "build": "tsc && tsc -m ESNext --outDir dist/esm && mv dist/esm/* dist/ && rmdir dist/esm",
+    "dev": "tsc -w",
+    "test": "vitest run",
+    "lint": "eslint src --ext .ts",
+    "type-check": "tsc --noEmit"
+  },
+  "keywords": [
+    "pai",
+    "email",
+    "agent",
+    "cloudflare",
+    "resend",
+    "react-email",
+    "workers"
+  ],
+  "author": "PAI Universe",
+  "license": "MIT",
+  "dependencies": {
+    "resend": "^3.2.0",
+    "zod": "^3.22.4"
+  },
+  "devDependencies": {
+    "@types/node": "^20.10.0",
+    "typescript": "^5.3.0",
+    "vitest": "^1.0.0",
+    "eslint": "^8.55.0",
+    "@typescript-eslint/eslint-plugin": "^6.13.0",
+    "@typescript-eslint/parser": "^6.13.0"
+  },
+  "files": [
+    "dist",
+    "src"
+  ],
+  "engines": {
+    "node": ">=20.0.0"
+  }
+}

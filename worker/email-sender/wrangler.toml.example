@@ -1,0 +1,43 @@
+name = "pai-email-sender"
+main = "src/index.ts"
+compatibility_date = "2024-12-01"
+compatibility_flags = ["nodejs_compat"]
+
+# Environment variables (non-secret)
+[vars]
+ENVIRONMENT = "production"
+JWT_ISSUER = "pai-email-agent"
+JWT_AUDIENCE = "pai-agents"
+DOMAIN = "axiomid.app"
+AGENT_SUBDOMAIN = "agents"
+RESEND_BASE_URL = "https://api.resend.com"
+RESEND_API_VERSION = "2024-06-01"
+RATE_LIMIT_BURST = "10"
+QUOTA_HOURLY_DEFAULT = "100"
+QUOTA_DAILY_DEFAULT = "1000"
+QUOTA_MONTHLY_DEFAULT = "10000"
+
+# KV Namespaces - REPLACE WITH YOUR IDs
+[[kv_namespaces]]
+binding = "EMAIL_KV"
+id = "<YOUR_EMAIL_KV_ID>"
+preview_id = "<YOUR_EMAIL_KV_PREVIEW_ID>"
+
+[[kv_namespaces]]
+binding = "AGENT_KV"
+id = "<YOUR_AGENT_KV_ID>"
+preview_id = "<YOUR_AGENT_KV_PREVIEW_ID>"
+
+[[kv_namespaces]]
+binding = "RATE_LIMIT_KV"
+id = "<YOUR_RATE_LIMIT_KV_ID>"
+preview_id = "<YOUR_RATE_LIMIT_KV_PREVIEW_ID>"
+
+[[kv_namespaces]]
+binding = "WEBHOOK_KV"
+id = "<YOUR_WEBHOOK_KV_ID>"
+preview_id = "<YOUR_WEBHOOK_KV_PREVIEW_ID>"
+
+# Build
+[build]
+command = "npm run build"

@@ -1,0 +1,139 @@
+{
+  "version": "1.0.0",
+  "description": "Conformance test vectors for PAI Email Agent implementations",
+  "vectors": [
+    {
+      "name": "valid-agent-email-minimal",
+      "description": "Minimal valid AgentEmail object",
+      "input": {
+        "to": "pai-agent@axiomid.app",
+        "from": "user@example.com",
+        "subject": "Hello",
+        "body": "Test message",
+        "agentId": "pai-agent",
+        "timestamp": "2026-01-15T10:30:00.000Z"
+      },
+      "expected": {
+        "valid": true
+      }
+    },
+    {
+      "name": "valid-agent-email-full",
+      "description": "Full AgentEmail with headers and attachments",
+      "input": {
+        "to": "codex@axiomid.app",
+        "from": "developer@company.com",
+        "subject": "PR Review Request",
+        "body": "Please review the latest changes...",
+        "agentId": "codex",
+        "timestamp": "2026-01-15T14:22:10.000Z",
+        "headers": {
+          "message-id": "<abc123@example.com>",
+          "references": "<prev456@example.com>",
+          "in-reply-to": "<prev456@example.com>",
+          "content-type": "text/plain; charset=utf-8"
+        },
+        "attachments": [
+          {
+            "filename": "patch.diff",
+            "contentType": "text/x-diff",
+            "size": 2048,
+            "contentId": "<patch@example.com>"
+          }
+        ]
+      },
+      "expected": {
+        "valid": true
+      }
+    },
+    {
+      "name": "invalid-agent-id-format",
+      "description": "Agent ID with invalid characters",
+      "input": {
+        "to": "PAI_Agent@axiomid.app",
+        "from": "user@example.com",
+        "subject": "Test",
+        "body": "Test",
+        "agentId": "PAI_Agent",
+        "timestamp": "2026-01-15T10:30:00.000Z"
+      },
+      "expected": {
+        "valid": false,
+        "error": "agentId must match ^[a-z0-9][a-z0-9-]{2,29}$"
+      }
+    },
+    {
+      "name": "invalid-email-format",
+      "description": "Invalid email address in 'to' field",
+      "input": {
+        "to": "not-an-email",
+        "from": "user@example.com",
+        "subject": "Test",
+        "body": "Test",
+        "agentId": "pai-agent",
+        "timestamp": "2026-01-15T10:30:00.000Z"
+      },
+      "expected": {
+        "valid": false,
+        "error": "to must be a valid email"
+      }
+    },
+    {
+      "name": "body-too-large",
+      "description": "Email body exceeds 64KB limit",
+      "input": {
+        "to": "pai-agent@axiomid.app",
+        "from": "user@example.com",
+        "subject": "Large email",
+        "body": "xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx",
+        "agentId": "pai-agent",
+        "timestamp": "2026-01-15T10:30:00.000Z"
+      },
+      "expected": {
+        "valid": false,
+        "error": "body must be at most 65536 characters"
+      }
+    },
+    {
+      "name": "too-many-attachments",
+      "description": "More than 10 attachments",
+      "input": {
+        "to": "pai-agent@axiomid.app",
+        "from": "user@example.com",
+        "subject": "Many attachments",
+        "body": "Test",
+        "agentId": "pai-agent",
+        "timestamp": "2026-01-15T10:30:00.000Z",
+        "attachments": [
+          {"filename": "file0.txt", "contentType": "text/plain", "size": 100},
+          {"filename": "file1.txt", "contentType": "text/plain", "size": 100},
+          {"filename": "file2.txt", "contentType": "text/plain", "size": 100},
+          {"filename": "file3.txt", "contentType": "text/plain", "size": 100},
+          {"filename": "file4.txt", "contentType": "text/plain", "size": 100},
+          {"filename": "file5.txt", "contentType": "text/plain", "size": 100},
+          {"filename": "file6.txt", "contentType": "text/plain", "size": 100},
+          {"filename": "file7.txt", "contentType": "text/plain", "size": 100},
+          {"filename": "file8.txt", "contentType": "text/plain", "size": 100},
+          {"filename": "file9.txt", "contentType": "text/plain", "size": 100},
+          {"filename": "file10.txt", "contentType": "text/plain", "size": 100}
+        ]
+      },
+      "expected": {
+        "valid": false,
+        "error": "attachments must have at most 10 items"
+      }
+    },
+    {
+      "name": "missing-required-fields",
+      "description": "Missing required fields",
+      "input": {
+        "to": "pai-agent@axiomid.app",
+        "from": "user@example.com"
+      },
+      "expected": {
+        "valid": false,
+        "error": "Required fields missing: subject, body, agentId, timestamp"
+      }
+    }
+  ]
+}

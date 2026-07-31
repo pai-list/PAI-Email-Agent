@@ -1,0 +1,41 @@
+{
+  "name": "pai-email-agent",
+  "version": "0.1.0",
+  "private": true,
+  "description": "Enterprise email infrastructure for PAI Universe",
+  "scripts": {
+    "dev": "pnpm --filter=* dev",
+    "build": "pnpm --filter=* build",
+    "test": "vitest run",
+    "test:watch": "vitest",
+    "test:coverage": "vitest run --coverage",
+    "lint": "pnpm --filter=* lint",
+    "typecheck": "pnpm --filter=* typecheck",
+    "deploy:staging": "pnpm --filter=* deploy:staging",
+    "deploy:prod": "pnpm --filter=* deploy:prod",
+    "generate:diagrams": "python3 scripts/generate_diagrams.py",
+    "prepare": "pnpm run build"
+  },
+  "keywords": [
+    "pai",
+    "email",
+    "cloudflare",
+    "workers",
+    "resend",
+    "agent",
+    "axiomid"
+  ],
+  "author": "PAI Universe <dev@pai-list.org>",
+  "license": "MIT",
+  "packageManager": "pnpm@9.0.0",
+  "engines": {
+    "node": ">=20.0.0"
+  },
+  "devDependencies": {
+    "vitest": "^2.0.0",
+    "@typescript-eslint/eslint-plugin": "^8.0.0",
+    "@typescript-eslint/parser": "^8.0.0",
+    "eslint": "^9.10.0",
+    "typescript": "^5.6.0"
+  }
+}

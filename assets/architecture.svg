@@ -1,0 +1,216 @@
+<svg width="1200" height="800" viewBox="0 0 1200 800" xmlns="http://www.w3.org/2000/svg">
+  <defs>
+    <!-- Gradients -->
+    <linearGradient id="bgGrad" x1="0%" y1="0%" x2="100%" y2="100%">
+      <stop offset="0%" style="stop-color:#0f172a"/>
+      <stop offset="100%" style="stop-color:#1e1b4b"/>
+    </linearGradient>
+    <linearGradient id="cfGrad" x1="0%" y1="0%" x2="100%" y2="0%">
+      <stop offset="0%" style="stop-color:#F38020"/>
+      <stop offset="100%" style="stop-color:#E86C00"/>
+    </linearGradient>
+    <linearGradient id="resendGrad" x1="0%" y1="0%" x2="100%" y2="0%">
+      <stop offset="0%" style="stop-color:#000000"/>
+      <stop offset="100%" style="stop-color:#333333"/>
+    </linearGradient>
+    <linearGradient id="paiGrad" x1="0%" y1="0%" x2="100%" y2="0%">
+      <stop offset="0%" style="stop-color:#6366f1"/>
+      <stop offset="100%" style="stop-color:#8b5cf6"/>
+    </linearGradient>
+    <linearGradient id="workerGrad" x1="0%" y1="0%" x2="100%" y2="0%">
+      <stop offset="0%" style="stop-color:#06b6d4"/>
+      <stop offset="100%" style="stop-color:#0891b2"/>
+    </linearGradient>
+    <linearGradient id="kvGrad" x1="0%" y1="0%" x2="100%" y2="0%">
+      <stop offset="0%" style="stop-color:#22c55e"/>
+      <stop offset="100%" style="stop-color:#16a34a"/>
+    </linearGradient>
+    <linearGradient id="doGrad" x1="0%" y1="0%" x2="100%" y2="0%">
+      <stop offset="0%" style="stop-color:#f59e0b"/>
+      <stop offset="100%" style="stop-color:#d97706"/>
+    </linearGradient>
+    <filter id="glow" x="-50%" y="-50%" width="200%" height="200%">
+      <feGaussianBlur stdDeviation="8" result="blur"/>
+      <feMerge>
+        <feMergeNode in="blur"/>
+        <feMergeNode in="SourceGraphic"/>
+      </feMerge>
+    </filter>
+    <filter id="softShadow" x="-20%" y="-20%" width="140%" height="140%">
+      <feDropShadow dx="0" dy="4" stdDeviation="8" flood-color="#000" flood-opacity="0.3"/>
+    </filter>
+    <marker id="arrowhead" markerWidth="10" markerHeight="7" refX="9" refY="3.5" orient="auto">
+      <polygon points="0 0, 10 3.5, 0 7" fill="#64748b"/>
+    </marker>
+  </defs>
+
+  <!-- Background -->
+  <rect width="1200" height="800" fill="url(#bgGrad)"/>
+  
+  <!-- Grid pattern -->
+  <pattern id="grid" width="40" height="40" patternUnits="userSpaceOnUse">
+    <path d="M 40 0 L 0 0 0 40" fill="none" stroke="#1e293b" stroke-width="0.5"/>
+  </pattern>
+  <rect width="1200" height="800" fill="url(#grid)" opacity="0.3"/>
+
+  <!-- Title -->
+  <text x="600" y="60" text-anchor="middle" font-family="-apple-system, BlinkMacSystemFont, Segoe UI, Roboto" font-size="32" font-weight="700" fill="white">
+    PAI Email Agent Architecture
+  </text>
+  <text x="600" y="95" text-anchor="middle" font-family="-apple-system, BlinkMacSystemFont, Segoe UI, Roboto" font-size="16" fill="#94a3b8">
+    Zero-Cost Email Infrastructure for AI Agents • Cloudflare (Receive) + Resend (Send)
+  </text>
+
+  <!-- INBOUND SECTION (LEFT) -->
+  <g id="inbound">
+    <!-- Section header -->
+    <rect x="40" y="130" width="520" height="50" rx="12" fill="rgba(243,128,32,0.15)" stroke="#F38020" stroke-width="2"/>
+    <text x="300" y="163" text-anchor="middle" font-family="inherit" font-size="18" font-weight="600" fill="#F38020">📥 INBOUND (Free - Cloudflare Email Routing)</text>
+
+    <!-- External Sender -->
+    <rect x="60" y="210" width="160" height="80" rx="12" fill="rgba(100,116,139,0.2)" stroke="#64748b" stroke-width="1.5" filter="url(#softShadow)"/>
+    <text x="140" y="250" text-anchor="middle" font-family="inherit" font-size="14" font-weight="600" fill="#e2e8f0">External<br/>Sender</text>
+    <text x="140" y="272" text-anchor="middle" font-family="inherit" font-size="11" fill="#94a3b8">any@domain.com</text>
+
+    <!-- Arrow -->
+    <path d="M220 250 L280 250" stroke="#64748b" stroke-width="2" marker-end="url(#arrowhead)"/>
+
+    <!-- Cloudflare Email Routing -->
+    <rect x="280" y="210" width="260" height="80" rx="12" fill="url(#cfGrad)" filter="url(#glow)"/>
+    <text x="410" y="245" text-anchor="middle" font-family="inherit" font-size="14" font-weight="700" fill="white">Cloudflare Email Routing</text>
+    <text x="410" y="267" text-anchor="middle" font-family="inherit" font-size="11" fill="rgba(255,255,255,0.8)">*.axiomid.app catch-all</text>
+
+    <!-- Arrow -->
+    <path d="M410 290 V330" stroke="#F38020" stroke-width="2" marker-end="url(#arrowhead)"/>
+
+    <!-- Email Worker -->
+    <rect x="310" y="330" width="200" height="90" rx="12" fill="url(#workerGrad)" filter="url(#glow)"/>
+    <text x="410" y="362" text-anchor="middle" font-family="inherit" font-size="14" font-weight="700" fill="white">agent-email-router.ts</text>
+    <text x="410" y="382" text-anchor="middle" font-family="inherit" font-size="11" fill="rgba(255,255,255,0.8)">Cloudflare Worker</text>
+    <text x="410" y="400" text-anchor="middle" font-family="inherit" font-size="10" fill="rgba(255,255,255,0.7)">Extract agentId → Route to DO</text>
+
+    <!-- Branch arrows -->
+    <path d="M310 375 L200 375" stroke="#06b6d4" stroke-width="2" marker-end="url(#arrowhead)"/>
+    <path d="M510 375 L620 375" stroke="#06b6d4" stroke-width="2" marker-end="url(#arrowhead)"/>
+
+    <!-- Agent Durable Object (left branch) -->
+    <rect x="40" y="350" width="150" height="80" rx="12" fill="url(#doGrad)" filter="url(#glow)"/>
+    <text x="115" y="380" text-anchor="middle" font-family="inherit" font-size="13" font-weight="700" fill="white">Agent Durable Object</text>
+    <text x="115" y="400" text-anchor="middle" font-family="inherit" font-size="10" fill="rgba(255,255,255,0.8)">AGENT_STATE</text>
+    <text x="115" y="416" text-anchor="middle" font-family="inherit" font-size="9" fill="rgba(255,255,255,0.7)">Process email</text>
+
+    <!-- PAI_RECEIPTS KV (right branch) -->
+    <rect x="620" y="350" width="150" height="80" rx="12" fill="url(#kvGrad)" filter="url(#glow)"/>
+    <text x="695" y="380" text-anchor="middle" font-family="inherit" font-size="13" font-weight="700" fill="white">PAI_RECEIPTS KV</text>
+    <text x="695" y="400" text-anchor="middle" font-family="inherit" font-size="10" fill="rgba(255,255,255,0.8)">Audit Log</text>
+    <text x="695" y="416" text-anchor="middle" font-family="inherit" font-size="9" fill="rgba(255,255,255,0.7)">30-day TTL</text>
+
+    <!-- Free badge -->
+    <rect x="40" y="450" width="180" height="36" rx="8" fill="rgba(34,197,94,0.2)" stroke="#22c55e" stroke-width="1.5"/>
+    <text x="130" y="473" text-anchor="middle" font-family="inherit" font-size="13" font-weight="600" fill="#22c55e">✓ UNLIMITED FREE INBOUND</text>
+  </g>
+
+  <!-- OUTBOUND SECTION (RIGHT) -->
+  <g id="outbound">
+    <!-- Section header -->
+    <rect x="640" y="130" width="520" height="50" rx="12" fill="rgba(0,0,0,0.15)" stroke="#333" stroke-width="2"/>
+    <text x="900" y="163" text-anchor="middle" font-family="inherit" font-size="18" font-weight="600" fill="white">📤 OUTBOUND (Free - Resend 3,000/mo)</text>
+
+    <!-- Agent Logic -->
+    <rect x="820" y="210" width="160" height="80" rx="12" fill="url(#paiGrad)" filter="url(#glow)"/>
+    <text x="900" y="245" text-anchor="middle" font-family="inherit" font-size="14" font-weight="700" fill="white">Agent Logic</text>
+    <text x="900" y="267" text-anchor="middle" font-family="inherit" font-size="11" fill="rgba(255,255,255,0.8)">@pai/email-agent SDK</text>
+
+    <!-- Arrow -->
+    <path d="M900 290 V330" stroke="#6366f1" stroke-width="2" marker-end="url(#arrowhead)"/>
+
+    <!-- Resend SDK -->
+    <rect x="820" y="330" width="160" height="80" rx="12" fill="url(#resendGrad)" filter="url(#glow)"/>
+    <text x="900" y="362" text-anchor="middle" font-family="inherit" font-size="14" font-weight="700" fill="white">Resend SDK</text>
+    <text x="900" y="382" text-anchor="middle" font-family="inherit" font-size="11" fill="rgba(255,255,255,0.8)">React Email Templates</text>
+
+    <!-- Arrow -->
+    <path d="M900 410 V450" stroke="#333" stroke-width="2" marker-end="url(#arrowhead)"/>
+
+    <!-- React Email Templates -->
+    <rect x="750" y="450" width="300" height="100" rx="12" fill="rgba(255,255,255,0.05)" stroke="#333" stroke-width="1" stroke-dasharray="5,5"/>
+    <text x="900" y="482" text-anchor="middle" font-family="inherit" font-size="13" font-weight="600" fill="#e2e8f0">React Email Templates</text>
+    <text x="900" y="504" text-anchor="middle" font-family="inherit" font-size="11" fill="#94a3b8">Welcome • Notification • Verification</text>
+    <text x="900" y="522" text-anchor="middle" font-family="inherit" font-size="10" fill="#64748b">Customizable • Type-safe • Responsive</text>
+
+    <!-- Arrow -->
+    <path d="M900 550 V590" stroke="#333" stroke-width="2" marker-end="url(#arrowhead)"/>
+
+    <!-- External Recipient -->
+    <rect x="820" y="590" width="160" height="80" rx="12" fill="rgba(100,116,139,0.2)" stroke="#64748b" stroke-width="1.5" filter="url(#softShadow)"/>
+    <text x="900" y="625" text-anchor="middle" font-family="inherit" font-size="14" font-weight="600" fill="#e2e8f0">External<br/>Recipient</text>
+    <text x="900" y="647" text-anchor="middle" font-family="inherit" font-size="11" fill="#94a3b8">user@example.com</text>
+
+    <!-- Free badge -->
+    <rect x="640" y="450" width="220" height="36" rx="8" fill="rgba(34,197,94,0.2)" stroke="#22c55e" stroke-width="1.5"/>
+    <text x="750" y="473" text-anchor="middle" font-family="inherit" font-size="13" font-weight="600" fill="#22c55e">✓ 3,000 EMAILS/MONTH FREE</text>
+
+    <!-- Passport Authorization -->
+    <rect x="640" y="500" width="220" height="80" rx="12" fill="rgba(99,102,241,0.15)" stroke="#6366f1" stroke-width="1.5"/>
+    <text x="750" y="528" text-anchor="middle" font-family="inherit" font-size="12" font-weight="600" fill="#818cf8">🔐 Passport JWT Auth</text>
+    <text x="750" y="548" text-anchor="middle" font-family="inherit" font-size="10" fill="#a5b4fc">Authorization: Bearer <jwt></text>
+    <text x="750" y="564" text-anchor="middle" font-family="inherit" font-size="10" fill="#a5b4fc">X-Passport-Version: 1</text>
+  </g>
+
+  <!-- IDENTITY & SUBDOMAINS (BOTTOM CENTER) -->
+  <g id="identity">
+    <rect x="200" y="650" width="800" height="120" rx="16" fill="rgba(99,102,241,0.1)" stroke="#6366f1" stroke-width="2" filter="url(#softShadow)"/>
+    
+    <text x="600" y="680" text-anchor="middle" font-family="inherit" font-size="18" font-weight="700" fill="#818cf8">🆔 IDENTITY & SUBDOMAINS (axiomid.app)</text>
+    
+    <!-- Subdomain cards -->
+    <g font-family="inherit" font-size="11">
+      <rect x="240" y="700" width="140" height="50" rx="8" fill="rgba(99,102,241,0.15)" stroke="#6366f1" stroke-width="1"/>
+      <text x="310" y="720" text-anchor="middle" font-weight="600" fill="#c7d2fe">amrikyy.axiomid.app</text>
+      <text x="310" y="738" text-anchor="middle" fill="#818cf8">Agent Passport</text>
+
+      <rect x="400" y="700" width="140" height="50" rx="8" fill="rgba(6,182,212,0.15)" stroke="#06b6d4" stroke-width="1"/>
+      <text x="470" y="720" text-anchor="middle" font-weight="600" fill="#67e8f9">mcp.amrikyy.axiomid.app</text>
+      <text x="470" y="738" text-anchor="middle" fill="#22d3ee">MCP Endpoint</text>
+
+      <rect x="560" y="700" width="140" height="50" rx="8" fill="rgba(245,158,11,0.15)" stroke="#f59e0b" stroke-width="1"/>
+      <text x="630" y="720" text-anchor="middle" font-weight="600" fill="#fde047">amrikyy@axiomid.app</text>
+      <text x="630" y="738" text-anchor="middle" fill="#fbbf24">Email Identity</text>
+
+      <rect x="720" y="700" width="140" height="50" rx="8" fill="rgba(34,197,94,0.15)" stroke="#22c55e" stroke-width="1"/>
+      <text x="790" y="720" text-anchor="middle" font-weight="600" fill="#86efac">ws.amrikyy.axiomid.app</text>
+      <text x="790" y="738" text-anchor="middle" fill="#4ade80">WebSocket</text>
+    </g>
+  </g>
+
+  <!-- COST SUMMARY (BOTTOM RIGHT) -->
+  <g id="cost">
+    <rect x="950" y="650" width="220" height="120" rx="12" fill="rgba(34,197,94,0.1)" stroke="#22c55e" stroke-width="2"/>
+    <text x="1060" y="680" text-anchor="middle" font-family="inherit" font-size="16" font-weight="700" fill="#22c55e">💰 MONTHLY COST</text>
+    <text x="1060" y="710" text-anchor="middle" font-family="inherit" font-size="36" font-weight="800" fill="#22c55e">$0</text>
+    <text x="1060" y="735" text-anchor="middle" font-family="inherit" font-size="11" fill="#86efac">Cloudflare Workers: 100k req/day free</text>
+    <text x="1060" y="752" text-anchor="middle" font-family="inherit" font-size="11" fill="#86efac">Resend: 3,000 emails/mo free</text>
+    <text x="1060" y="769" text-anchor="middle" font-family="inherit" font-size="11" fill="#86efac">Email Routing: Unlimited free</text>
+  </g>
+
+  <!-- LEGEND -->
+  <g id="legend" font-family="inherit" font-size="11">
+    <rect x="40" y="730" width="16" height="16" rx="3" fill="url(#cfGrad)"/>
+    <text x="65" y="742" fill="#e2e8f0">Cloudflare Services</text>
+    
+    <rect x="40" y="755" width="16" height="16" rx="3" fill="url(#resendGrad)"/>
+    <text x="65" y="767" fill="#e2e8f0">Resend (Sending)</text>
+    
+    <rect x="200" y="730" width="16" height="16" rx="3" fill="url(#workerGrad)"/>
+    <text x="225" y="742" fill="#e2e8f0">Workers</text>
+    
+    <rect x="200" y="755" width="16" height="16" rx="3" fill="url(#doGrad)"/>
+    <text x="225" y="767" fill="#e2e8f0">Durable Objects</text>
+    
+    <rect x="360" y="730" width="16" height="16" rx="3" fill="url(#kvGrad)"/>
+    <text x="385" y="742" fill="#e2e8f0">KV Storage</text>
+    
+    <rect x="360" y="755" width="16" height="16" rx="3" fill="url(#paiGrad)"/>
+    <text x="385" y="767" fill="#e2e8f0">PAI SDK / Agent</text>
+  </g>
+</svg>

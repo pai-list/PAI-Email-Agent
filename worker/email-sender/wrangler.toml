@@ -1,0 +1,42 @@
+name = "pai-email-sender"
+main = "src/index.ts"
+compatibility_date = "2024-12-01"
+compatibility_flags = ["nodejs_compat"]
+
+# Environment variables (non-secret)
+[vars]
+ENVIRONMENT = "production"
+JWT_ISSUER = "pai-email-agent"
+JWT_AUDIENCE = "pai-agents"
+DOMAIN = "axiomid.app"
+RESEND_API_URL = "https://api.resend.com"
+DEFAULT_FROM_EMAIL = "noreply@axiomid.app"
+RATE_LIMIT_WINDOW_MS = "3600000" # 1 hour
+RATE_LIMIT_MAX_REQUESTS = "100"
+
+# KV Namespaces
+[[kv_namespaces]]
+binding = "EMAIL_KV"
+id = "<EMAIL_KV_ID>"
+preview_id = "<EMAIL_KV_PREVIEW_ID>"
+
+[[kv_namespaces]]
+binding = "AGENT_KV"
+id = "<AGENT_KV_ID>"
+preview_id = "<AGENT_KV_PREVIEW_ID>"
+
+[[kv_namespaces]]
+binding = "RATE_LIMIT_KV"
+id = "<RATE_LIMIT_KV_ID>"
+preview_id = "<RATE_LIMIT_KV_PREVIEW_ID>"
+
+# Service Binding (to call email router for webhook delivery)
+# [services]
+# email_router = "pai-email-router"
+
+# Build
+[build]
+command = "npm run build"
+
+# [env.staging]
+# [env.production]

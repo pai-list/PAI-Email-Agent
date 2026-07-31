@@ -1,0 +1,33 @@
+# Cloudflare Worker Configuration for PAI Email Agent
+
+name = "agent-email-router"
+main = "src/index.ts"
+compatibility_date = "2026-07-31"
+compatibility_flags = ["nodejs_compat"]
+
+# --- KV Namespaces ---
+[[kv_namespaces]]
+binding = "PAI_RECEIPTS"
+id = "REPLACE_WITH_KV_ID"  # Create via: npx wrangler kv namespace create PAI_RECEIPTS
+preview_id = "REPLACE_WITH_PREVIEW_KV_ID"
+
+# --- Durable Objects ---
+[[durable_objects.bindings]]
+name = "AGENT_STATE"
+class_name = "AgentStateDO"
+script_name = "axiomid-backend"  # Shared with AxiomID backend
+
+# --- Vars ---
+[vars]
+ENVIRONMENT = "production"
+PASSPORT_ISSUER = "https://passport.pai.agent"
+EMAIL_DOMAIN = "axiomid.app"
+
+# --- Secrets (set via `wrangler secret put`) ---
+# RESEND_API_KEY = "re_xxxxxxxxxxxxx"
+# PASSPORT_PRIVATE_KEY = "base64-encoded-ed25519-private-key"
+# PASSPORT_KEY_ID = "pai-passport-2026-01"
+
+# --- Observability ---
+[observability]
+enabled = true

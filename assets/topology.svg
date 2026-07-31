@@ -1,0 +1,351 @@
+<svg width="1400" height="1000" viewBox="0 0 1400 1000" xmlns="http://www.w3.org/2000/svg">
+  <defs>
+    <linearGradient id="bgGrad" x1="0%" y1="0%" x2="100%" y2="100%">
+      <stop offset="0%" style="stop-color:#020617"/>
+      <stop offset="100%" style="stop-color:#0f172a"/>
+    </linearGradient>
+    <linearGradient id="layer0" x1="0%" y1="0%" x2="100%" y2="0%">
+      <stop offset="0%" style="stop-color:#F38020"/>
+      <stop offset="100%" style="stop-color:#E86C00"/>
+    </linearGradient>
+    <linearGradient id="layer1" x1="0%" y1="0%" x2="100%" y2="0%">
+      <stop offset="0%" style="stop-color:#6366f1"/>
+      <stop offset="100%" style="stop-color:#8b5cf6"/>
+    </linearGradient>
+    <linearGradient id="layer2" x1="0%" y1="0%" x2="100%" y2="0%">
+      <stop offset="0%" style="stop-color:#06b6d4"/>
+      <stop offset="100%" style="stop-color:#0891b2"/>
+    </linearGradient>
+    <linearGradient id="layer3" x1="0%" y1="0%" x2="100%" y2="0%">
+      <stop offset="0%" style="stop-color:#22c55e"/>
+      <stop offset="100%" style="stop-color:#16a34a"/>
+    </linearGradient>
+    <linearGradient id="layer4" x1="0%" y1="0%" x2="100%" y2="0%">
+      <stop offset="0%" style="stop-color:#f59e0b"/>
+      <stop offset="100%" style="stop-color:#d97706"/>
+    </linearGradient>
+    <linearGradient id="paiGrad" x1="0%" y1="0%" x2="100%" y2="0%">
+      <stop offset="0%" style="stop-color:#ec4899"/>
+      <stop offset="100%" style="stop-color:#d946ef"/>
+    </linearGradient>
+    <filter id="glow" x="-50%" y="-50%" width="200%" height="200%">
+      <feGaussianBlur stdDeviation="6" result="blur"/>
+      <feMerge>
+        <feMergeNode in="blur"/>
+        <feMergeNode in="SourceGraphic"/>
+      </feMerge>
+    </filter>
+    <filter id="softShadow" x="-20%" y="-20%" width="140%" height="140%">
+      <feDropShadow dx="0" dy="6" stdDeviation="12" flood-color="#000" flood-opacity="0.5"/>
+    </filter>
+    <marker id="arrow" markerWidth="10" markerHeight="7" refX="9" refY="3.5" orient="auto">
+      <polygon points="0 0, 10 3.5, 0 7" fill="#64748b"/>
+    </marker>
+    <marker id="arrowOrange" markerWidth="10" markerHeight="7" refX="9" refY="3.5" orient="auto">
+      <polygon points="0 0, 10 3.5, 0 7" fill="#F38020"/>
+    </marker>
+    <marker id="arrowPurple" markerWidth="10" markerHeight="7" refX="9" refY="3.5" orient="auto">
+      <polygon points="0 0, 10 3.5, 0 7" fill="#a5b4fc"/>
+    </marker>
+    <marker id="arrowCyan" markerWidth="10" markerHeight="7" refX="9" refY="3.5" orient="auto">
+      <polygon points="0 0, 10 3.5, 0 7" fill="#67e8f9"/>
+    </marker>
+    <marker id="arrowGreen" markerWidth="10" markerHeight="7" refX="9" refY="3.5" orient="auto">
+      <polygon points="0 0, 10 3.5, 0 7" fill="#4ade80"/>
+    </marker>
+    <pattern id="dots" width="20" height="20" patternUnits="userSpaceOnUse">
+      <circle cx="2" cy="2" r="1" fill="rgba(255,255,255,0.03)"/>
+    </pattern>
+  </defs>
+
+  <!-- Background -->
+  <rect width="1400" height="1000" fill="url(#bgGrad)"/>
+  <rect width="1400" height="1000" fill="url(#dots)"/>
+
+  <!-- Title -->
+  <text x="700" y="40" text-anchor="middle" font-family="-apple-system, BlinkMacSystemFont, Segoe UI, Roboto" font-size="28" font-weight="800" fill="white">
+    PAI Universe Topology — Email + Passport + Identity
+  </text>
+  <text x="700" y="65" text-anchor="middle" font-family="inherit" font-size="13" fill="#64748b">
+    Zero-Cost Architecture • Cloudflare + Resend + Vercel + OpenIdentity Spec
+  </text>
+
+  <!-- LAYER 0: INFRASTRUCTURE (TOP) -->
+  <g id="layer0">
+    <rect x="20" y="90" width="1360" height="140" rx="16" fill="rgba(243,128,32,0.08)" stroke="#F38020" stroke-width="2" filter="url(#softShadow)"/>
+    <text x="40" y="120" font-family="inherit" font-size="16" font-weight="700" fill="#F38020">☁️ LAYER 0 — INFRASTRUCTURE (Cloudflare)</text>
+    
+    <!-- Cloudflare Services -->
+    <g font-family="inherit" font-size="11">
+      <!-- Email Routing -->
+      <rect x="40" y="140" width="200" height="80" rx="12" fill="url(#layer0)" filter="url(#glow)"/>
+      <text x="140" y="170" text-anchor="middle" font-weight="700" fill="white">Email Routing</text>
+      <text x="140" y="190" text-anchor="middle" fill="rgba(255,255,255,0.8)">*.axiomid.app catch-all</text>
+      <text x="140" y="208" text-anchor="middle" font-size="10" fill="#F38020">FREE ∞ inbound</text>
+      
+      <!-- Workers -->
+      <rect x="260" y="140" width="180" height="80" rx="12" fill="rgba(243,128,32,0.3)" stroke="#F38020" stroke-width="1"/>
+      <text x="350" y="170" text-anchor="middle" font-weight="700" fill="white">Workers</text>
+      <text x="350" y="190" text-anchor="middle" fill="rgba(255,255,255,0.8)">agent-email-router</text>
+      <text x="350" y="208" text-anchor="middle" font-size="10" fill="#F38020">100k req/day free</text>
+      
+      <!-- Durable Objects -->
+      <rect x="460" y="140" width="180" height="80" rx="12" fill="rgba(245,158,11,0.3)" stroke="#f59e0b" stroke-width="1"/>
+      <text x="550" y="170" text-anchor="middle" font-weight="700" fill="white">Durable Objects</text>
+      <text x="550" y="190" text-anchor="middle" fill="rgba(255,255,255,0.8)">AGENT_STATE</text>
+      <text x="550" y="208" text-anchor="middle" font-size="10" fill="#fbbf24">Per-agent SQLite</text>
+      
+      <!-- KV -->
+      <rect x="660" y="140" width="180" height="80" rx="12" fill="rgba(34,197,94,0.3)" stroke="#22c55e" stroke-width="1"/>
+      <text x="750" y="170" text-anchor="middle" font-weight="700" fill="white">KV Storage</text>
+      <text x="750" y="190" text-anchor="middle" fill="rgba(255,255,255,0.8)">PAI_RECEIPTS</text>
+      <text x="750" y="208" text-anchor="middle" font-size="10" fill="#4ade80">30-day audit log</text>
+      
+      <!-- DNS -->
+      <rect x="860" y="140" width="180" height="80" rx="12" fill="rgba(6,182,212,0.3)" stroke="#06b6d4" stroke-width="1"/>
+      <text x="950" y="170" text-anchor="middle" font-weight="700" fill="white">DNS</text>
+      <text x="950" y="190" text-anchor="middle" fill="rgba(255,255,255,0.8)">axiomid.app</text>
+      <text x="950" y="208" text-anchor="middle" font-size="10" fill="#67e8f9">Wildcard *.axiomid.app</text>
+      
+      <!-- R2 (future) -->
+      <rect x="1060" y="140" width="180" height="80" rx="12" fill="rgba(139,92,246,0.3)" stroke="#8b5cf6" stroke-width="1"/>
+      <text x="1150" y="170" text-anchor="middle" font-weight="700" fill="white">R2 (Future)</text>
+      <text x="1150" y="190" text-anchor="middle" fill="rgba(255,255,255,0.8)">Attachments</text>
+      <text x="1150" y="208" text-anchor="middle" font-size="10" fill="#c4b5fd">10GB free</text>
+    </g>
+  </g>
+
+  <!-- LAYER 1: PAI EMAIL AGENT (NEW REPO) -->
+  <g id="layer1" transform="translate(20, 260)">
+    <rect x="0" y="0" width="640" height="320" rx="16" fill="rgba(99,102,241,0.08)" stroke="#6366f1" stroke-width="2" filter="url(#softShadow)"/>
+    <text x="20" y="30" font-family="inherit" font-size="16" font-weight="700" fill="#818cf8">📧 LAYER 1 — PAI-EMAIL-AGENT (pai-list/PAI-Email-Agent)</text>
+    
+    <g font-family="inherit" font-size="10">
+      <!-- Spec -->
+      <rect x="20" y="50" width="180" height="110" rx="10" fill="rgba(99,102,241,0.15)" stroke="#6366f1" stroke-width="1"/>
+      <text x="110" y="75" text-anchor="middle" font-weight="700" fill="#a5b4fc">spec/</text>
+      <text x="110" y="95" text-anchor="middle" fill="#94a3b8">email-schema.json</text>
+      <text x="110" y="115" text-anchor="middle" fill="#94a3b8">passport-claims.md</text>
+      <text x="110" y="135" text-anchor="middle" font-size="9" fill="#6366f1">OpenIdentity aligned</text>
+      
+      <!-- TS SDK -->
+      <rect x="220" y="50" width="180" height="110" rx="10" fill="rgba(6,182,212,0.15)" stroke="#06b6d4" stroke-width="1"/>
+      <text x="310" y="75" text-anchor="middle" font-weight="700" fill="#67e8f9">sdk/ts/</text>
+      <text x="310" y="95" text-anchor="middle" fill="#94a3b8">@pai/email-agent</text>
+      <text x="310" y="115" text-anchor="middle" fill="#94a3b8">Resend client</text>
+      <text x="310" y="135" text-anchor="middle" fill="#94a3b8">React Email templates</text>
+      <text x="310" y="150" text-anchor="middle" font-size="9" fill="#06b6d4">npm: @pai/email-agent</text>
+      
+      <!-- Rust SDK -->
+      <rect x="420" y="50" width="180" height="110" rx="10" fill="rgba(245,158,11,0.15)" stroke="#f59e0b" stroke-width="1"/>
+      <text x="510" y="75" text-anchor="middle" font-weight="700" fill="#fde047">sdk/rust/</text>
+      <text x="510" y="95" text-anchor="middle" fill="#94a3b8">pai-email-agent</text>
+      <text x="510" y="115" text-anchor="middle" fill="#94a3b8">Ed25519 signing</text>
+      <text x="510" y="135" text-anchor="middle" fill="#94a3b8">WASM ready</text>
+      <text x="510" y="150" text-anchor="middle" font-size="9" fill="#f59e0b">crates.io</text>
+      
+      <!-- Worker -->
+      <rect x="20" y="180" width="280" height="120" rx="10" fill="url(#layer1)" filter="url(#glow)"/>
+      <text x="160" y="205" text-anchor="middle" font-weight="700" fill="white">worker/</text>
+      <text x="160" y="225" text-anchor="middle" fill="rgba(255,255,255,0.9)">agent-email-router.ts</text>
+      <text x="160" y="242" text-anchor="middle" font-size="9" fill="rgba(255,255,255,0.7)">Catch-all → Agent DO → KV audit</text>
+      <text x="160" y="260" text-anchor="middle" font-size="9" fill="rgba(255,255,255,0.7)">Protected: rita@axiomid.app</text>
+      <text x="160" y="278" text-anchor="middle" font-size="9" fill="#F38020">Deploy: wrangler deploy</text>
+      
+      <!-- Conformance -->
+      <rect x="320" y="180" width="280" height="120" rx="10" fill="rgba(34,197,94,0.15)" stroke="#22c55e" stroke-width="1"/>
+      <text x="460" y="205" text-anchor="middle" font-weight="700" fill="#4ade80">conformance/</text>
+      <text x="460" y="225" text-anchor="middle" fill="#94a3b8">Test vectors (JSON)</text>
+      <text x="460" y="242" text-anchor="middle" fill="#94a3b8">Automated validation</text>
+      <text x="460" y="260" text-anchor="middle" fill="#94a3b8">CI: conformance.yml</text>
+      <text x="460" y="278" text-anchor="middle" font-size="9" fill="#22c55e">Interop guaranteed</text>
+    </g>
+  </g>
+
+  <!-- LAYER 2: SENDING (RESEND) -->
+  <g id="layer2" transform="translate(680, 260)">
+    <rect x="0" y="0" width="340" height="320" rx="16" fill="rgba(0,0,0,0.15)" stroke="#333" stroke-width="2" filter="url(#softShadow)"/>
+    <text x="20" y="30" font-family="inherit" font-size="16" font-weight="700" fill="white">📤 LAYER 2 — OUTBOUND (Resend)</text>
+    
+    <g font-family="inherit" font-size="10">
+      <rect x="20" y="50" width="300" height="250" rx="10" fill="rgba(0,0,0,0.3)" stroke="#333" stroke-width="1"/>
+      <text x="170" y="75" text-anchor="middle" font-weight="700" fill="white">Resend Free Tier</text>
+      <text x="170" y="105" text-anchor="middle" fill="#94a3b8">3,000 emails/month FREE</text>
+      <text x="170" y="125" text-anchor="middle" fill="#94a3b8">React Email support</text>
+      <text x="170" y="145" text-anchor="middle" fill="#94a3b8">Webhooks: bounce, open, click</text>
+      <text x="170" y="165" text-anchor="middle" fill="#94a3b8">DKIM/SPF/DMARC auto</text>
+      <text x="170" y="185" text-anchor="middle" fill="#94a3b8">Domain: axiomid.app</text>
+      <text x="170" y="205" text-anchor="middle" fill="#94a3b8">DNS: DNS Only (gray cloud)</text>
+      <text x="170" y="225" text-anchor="middle" fill="#94a3b8">API: re_xxxxxxxxxxxx</text>
+      <text x="170" y="245" text-anchor="middle" fill="#94a3b8">SDK: @pai/email-agent</text>
+      <text x="170" y="265" text-anchor="middle" font-size="9" fill="#22c55e">✓ Zero cost at scale</text>
+      <text x="170" y="280" text-anchor="middle" font-size="9" fill="#F38020">Upgrade: $20/mo = 50k</text>
+    </g>
+  </g>
+
+  <!-- LAYER 3: PAI AGENT PASSPORT (SEPARATE REPO) -->
+  <g id="layer3" transform="translate(1040, 260)">
+    <rect x="0" y="0" width="340" height="320" rx="16" fill="rgba(236,72,153,0.08)" stroke="#ec4899" stroke-width="2" filter="url(#softShadow)"/>
+    <text x="20" y="30" font-family="inherit" font-size="16" font-weight="700" fill="#f472b6">🆔 LAYER 3 — PAI-AGENT-PASSPORT</text>
+    <text x="20" y="50" font-family="inherit" font-size="10" fill="#94a3b8">(New repo: pai-list/PAI-Agent-Passport)</text>
+    
+    <g font-family="inherit" font-size="10">
+      <rect x="20" y="65" width="300" height="240" rx="10" fill="rgba(236,72,153,0.15)" stroke="#ec4899" stroke-width="1"/>
+      <text x="170" y="90" text-anchor="middle" font-weight="700" fill="#f472b6">Genetic Passport</text>
+      <text x="170" y="110" text-anchor="middle" fill="#94a3b8">JWT with structured claims</text>
+      <text x="170" y="125" text-anchor="middle" fill="#94a3b8">Email identity embedded</text>
+      <text x="170" y="140" text-anchor="middle" fill="#94a3b8">Subdomain + Memory + Endpoints</text>
+      <text x="170" y="155" text-anchor="middle" fill="#94a3b8">Ed25519 signing</text>
+      <text x="170" y="170" text-anchor="middle" fill="#94a3b8">JWKS rotation (90 days)</text>
+      <text x="170" y="185" text-anchor="middle" fill="#94a3b8">Delegation chain</text>
+      <text x="170" y="200" text-anchor="middle" fill="#94a3b8">Evolution tracking</text>
+      <text x="170" y="215" text-anchor="middle" fill="#94a3b8">Fitness scoring</text>
+      <text x="170" y="230" text-anchor="middle" fill="#94a3b8">Vercel Passport compatible</text>
+      <text x="170" y="245" text-anchor="middle" fill="#94a3b8">x402 payment ready</text>
+      <text x="170" y="260" text-anchor="middle" fill="#94a3b8">Conformance tests</text>
+      <text x="170" y="275" text-anchor="middle" font-size="9" fill="#ec4899">Better than Vercel Passport</text>
+    </g>
+  </g>
+
+  <!-- LAYER 4: CONSUMERS (BOTTOM) -->
+  <g id="layer4" transform="translate(20, 600)">
+    <rect x="0" y="0" width="1360" height="360" rx="16" fill="rgba(245,158,11,0.08)" stroke="#f59e0b" stroke-width="2" filter="url(#softShadow)"/>
+    <text x="20" y="30" font-family="inherit" font-size="16" font-weight="700" fill="#fbbf24">🎯 LAYER 4 — CONSUMERS (All use @pai/email-agent + @pai/agent-passport)</text>
+    
+    <g font-family="inherit" font-size="10">
+      <!-- AxiomID -->
+      <rect x="20" y="50" width="260" height="290" rx="12" fill="url(#layer1)" filter="url(#glow)"/>
+      <text x="150" y="75" text-anchor="middle" font-weight="700" fill="white">AxiomID</text>
+      <text x="150" y="95" text-anchor="middle" fill="rgba(255,255,255,0.8)">layer-1-identity</text>
+      <text x="150" y="115" text-anchor="middle" font-size="9" fill="#a5b4fc">✓ Passport viewer</text>
+      <text x="150" y="130" text-anchor="middle" font-size="9" fill="#a5b4fc">✓ Subdomain routing</text>
+      <text x="150" y="145" text-anchor="middle" font-size="9" fill="#a5b4fc">✓ Email UI (React)</text>
+      <text x="150" y="160" text-anchor="middle" font-size="9" fill="#a5b4fc">✓ Agent registry</text>
+      <text x="150" y="175" text-anchor="middle" font-size="9" fill="#a5b4fc">✓ Next.js on Vercel</text>
+      <text x="150" y="190" text-anchor="middle" font-size="9" fill="#a5b4fc">✓ Prisma + PostgreSQL</text>
+      
+      <!-- ADP -->
+      <rect x="300" y="50" width="260" height="290" rx="12" fill="rgba(99,102,241,0.3)" stroke="#6366f1" stroke-width="1"/>
+      <text x="430" y="75" text-anchor="middle" font-weight="700" fill="#a5b4fc">ADP</text>
+      <text x="430" y="95" text-anchor="middle" fill="#94a3b8">Agent Data Plane</text>
+      <text x="430" y="115" text-anchor="middle" font-size="9" fill="#67e8f9">✓ Memory DO binding</text>
+      <text x="430" y="130" text-anchor="middle" font-size="9" fill="#67e8f9">✓ A2A bridge</text>
+      <text x="430" y="145" text-anchor="middle" font-size="9" fill="#67e8f9">✓ MCP servers</text>
+      <text x="430" y="160" text-anchor="middle" font-size="9" fill="#67e8f9">✓ Cloudflare Workers</text>
+      <text x="430" y="175" text-anchor="middle" font-size="9" fill="#67e8f9">✓ Workers AI</text>
+      
+      <!-- PAI-MCP -->
+      <rect x="580" y="50" width="260" height="290" rx="12" fill="rgba(6,182,212,0.3)" stroke="#06b6d4" stroke-width="1"/>
+      <text x="710" y="75" text-anchor="middle" font-weight="700" fill="#67e8f9">PAI-MCP</text>
+      <text x="710" y="95" text-anchor="middle" fill="#94a3b8">MCP Gateway</text>
+      <text x="710" y="115" text-anchor="middle" font-size="9" fill="#67e8f9">✓ Tool orchestration</text>
+      <text x="710" y="130" text-anchor="middle" font-size="9" fill="#67e8f9">✓ Agent skills</text>
+      <text x="710" y="145" text-anchor="middle" font-size="9" fill="#67e8f9">✓ OpenIdentity client</text>
+      <text x="710" y="160" text-anchor="middle" font-size="9" fill="#67e8f9">✓ Cloudflare Workers</text>
+      
+      <!-- PAI-Agent -->
+      <rect x="860" y="50" width="260" height="290" rx="12" fill="rgba(34,197,94,0.3)" stroke="#22c55e" stroke-width="1"/>
+      <text x="990" y="75" text-anchor="middle" font-weight="700" fill="#4ade80">PAI-Agent</text>
+      <text x="990" y="95" text-anchor="middle" fill="#94a3b8">Agent Runtime</text>
+      <text x="990" y="115" text-anchor="middle" font-size="9" fill="#86efac">✓ Autonomous loops</text>
+      <text x="990" y="130" text-anchor="middle" font-size="9" fill="#86efac">✓ Skill marketplace</text>
+      <text x="990" y="145" text-anchor="middle" font-size="9" fill="#86efac">✓ Passport auth</text>
+      <text x="990" y="160" text-anchor="middle" font-size="9" fill="#86efac">✓ Spend limits</text>
+      <text x="990" y="175" text-anchor="middle" font-size="9" fill="#86efac">✓ Genetic evolution</text>
+      
+      <!-- OpenIdentity -->
+      <rect x="1140" y="50" width="200" height="290" rx="12" fill="rgba(236,72,153,0.3)" stroke="#ec4899" stroke-width="1"/>
+      <text x="1240" y="75" text-anchor="middle" font-weight="700" fill="#f472b6">OpenIdentity</text>
+      <text x="1240" y="95" text-anchor="middle" fill="#94a3b8">Spec & SDKs</text>
+      <text x="1240" y="115" text-anchor="middle" font-size="9" fill="#f472b6">✓ AgentPassport.md</text>
+      <text x="1240" y="130" text-anchor="middle" font-size="9" fill="#f472b6">✓ Conformance</text>
+      <text x="1240" y="145" text-anchor="middle" font-size="9" fill="#f472b6">✓ Multi-lang SDKs</text>
+      <text x="1240" y="160" text-anchor="middle" font-size="9" fill="#f472b6">✓ x402 protocol</text>
+      <text x="1240" y="175" text-anchor="middle" font-size="9" fill="#f472b6">✓ Governance</text>
+    </g>
+  </g>
+
+  <!-- DATA FLOW ARROWS -->
+  <g font-family="inherit" font-size="9">
+    <!-- Inbound: Email → Worker → DO → KV -->
+    <path d="M140 230 V260" stroke="#F38020" stroke-width="2" marker-end="url(#arrowOrange)"/>
+    <text x="160" y="245" fill="#F38020">inbound</text>
+    
+    <path d="M350 230 V260" stroke="#F38020" stroke-width="2" marker-end="url(#arrowOrange)"/>
+    <text x="370" y="245" fill="#F38020">route</text>
+    
+    <path d="M550 230 V260" stroke="#fbbf24" stroke-width="2" marker-end="url(#arrow)"/>
+    <text x="570" y="245" fill="#fbbf24">process</text>
+    
+    <path d="M750 230 V260" stroke="#4ade80" stroke-width="2" marker-end="url(#arrowGreen)"/>
+    <text x="770" y="245" fill="#4ade80">audit</text>
+
+    <!-- SDK Usage -->
+    <path d="M310 160 L310 290" stroke="#67e8f9" stroke-width="2" marker-end="url(#arrowCyan)"/>
+    <text x="325" y="225" fill="#67e8f9">@pai/email-agent</text>
+    
+    <path d="M460 160 L460 290" stroke="#fde047" stroke-width="2" marker-end="url(#arrow)"/>
+    <text x="475" y="225" fill="#fde047">pai-email-agent</text>
+
+    <!-- Worker → Resend (outbound) -->
+    <path d="M340 380 H500" stroke="#333" stroke-width="2" marker-end="url(#arrow)"/>
+    <text x="420" y="375" fill="#94a3b8">send via Resend</text>
+
+    <!-- Passport → Consumers -->
+    <path d="M1210 430 V600" stroke="#f472b6" stroke-width="2" marker-end="url(#arrow)"/>
+    <text x="1230" y="515" fill="#f472b6">@pai/agent-passport</text>
+
+    <!-- Consumers → Infrastructure -->
+    <path d="M150 340 V400" stroke="#a5b4fc" stroke-width="1.5" stroke-dasharray="4,4" marker-end="url(#arrowPurple)"/>
+    <text x="170" y="370" fill="#a5b4fc">Workers + KV + DO</text>
+    
+    <path d="M430 340 V400" stroke="#67e8f9" stroke-width="1.5" stroke-dasharray="4,4" marker-end="url(#arrowCyan)"/>
+    <text x="450" y="370" fill="#67e8f9">Workers + DO</text>
+    
+    <path d="M710 340 V400" stroke="#67e8f9" stroke-width="1.5" stroke-dasharray="4,4" marker-end="url(#arrowCyan)"/>
+    <text x="730" y="370" fill="#67e8f9">Workers + KV</text>
+    
+    <path d="M990 340 V400" stroke="#4ade80" stroke-width="1.5" stroke-dasharray="4,4" marker-end="url(#arrowGreen)"/>
+    <text x="1010" y="370" fill="#4ade80">Workers + DO</text>
+
+    <!-- Vercel deployments -->
+    <path d="M150 50 L150 340" stroke="#000" stroke-width="2" marker-end="url(#arrow)"/>
+    <text x="170" y="180" fill="black" font-weight="700">Vercel</text>
+  </g>
+
+  <!-- SUBDOMAIN MAP (BOTTOM RIGHT) -->
+  <g transform="translate(1050, 870)" font-family="inherit" font-size="10">
+    <rect x="0" y="0" width="330" height="110" rx="12" fill="rgba(99,102,241,0.15)" stroke="#6366f1" stroke-width="1"/>
+    <text x="165" y="22" text-anchor="middle" font-weight="700" fill="#818cf8">axiomid.app Subdomains</text>
+    <g font-size="9" fill="#94a3b8">
+      <text x="10" y="42">amrikyy.axiomid.app → Passport Viewer</text>
+      <text x="10" y="58">mcp.amrikyy.axiomid.app → MCP Endpoint</text>
+      <text x="10" y="74">ws.amrikyy.axiomid.app → WebSocket</text>
+      <text x="10" y="90">api.amrikyy.axiomid.app → REST API</text>
+      <text x="10" y="106" fill="#fbbf24">amrikyy@axiomid.app → Email</text>
+    </g>
+  </g>
+
+  <!-- COST SUMMARY -->
+  <g transform="translate(40, 870)" font-family="inherit" font-size="10">
+    <rect x="0" y="0" width="280" height="110" rx="12" fill="rgba(34,197,94,0.15)" stroke="#22c55e" stroke-width="2"/>
+    <text x="140" y="22" text-anchor="middle" font-weight="700" fill="#22c55e">💰 Monthly Cost</text>
+    <text x="140" y="48" text-anchor="middle" font-size="28" font-weight="800" fill="#22c55e">$0</text>
+    <text x="140" y="68" text-anchor="middle" fill="#86efac">Cloudflare Workers: 100k/day free</text>
+    <text x="140" y="82" text-anchor="middle" fill="#86efac">Email Routing: Unlimited free</text>
+    <text x="140" y="96" text-anchor="middle" fill="#86efac">Resend: 3,000/mo free</text>
+    <text x="140" y="110" text-anchor="middle" fill="#86efac">KV + DO: Within free tiers</text>
+  </g>
+
+  <!-- REPO MAP -->
+  <g transform="translate(340, 870)" font-family="inherit" font-size="10">
+    <rect x="0" y="0" width="420" height="110" rx="12" fill="rgba(139,92,246,0.15)" stroke="#8b5cf6" stroke-width="1"/>
+    <text x="210" y="22" text-anchor="middle" font-weight="700" fill="#c4b5fd">Repository Map</text>
+    <text x="210" y="42" text-anchor="middle" fill="#94a3b8">pai-list/PAI-Email-Agent ← NEW (this work)</text>
+    <text x="210" y="58" text-anchor="middle" fill="#94a3b8">pai-list/PAI-Agent-Passport ← Next (genetic passport)</text>
+    <text x="210" y="74" text-anchor="middle" fill="#94a3b8">pai-list/AxiomID ← Consumer (identity layer)</text>
+    <text x="210" y="90" text-anchor="middle" fill="#94a3b8">pai-list/ADP ← Consumer (data plane)</text>
+    <text x="210" y="106" text-anchor="middle" fill="#94a3b8">pai-list/OpenIdentity ← Specs</text>
+  </g>
+
+</svg>
