@@ -29,9 +29,12 @@ export function validateAgentEmail(email: string): boolean {
 }
 
 function extractEmailAddress(input: string): string | null {
-  // Handle "Name <email@domain.com>" format
-  const match = input.match(/<([^>]+)>/);
-  if (match) return match[1].toLowerCase().trim();
+  // Handle "Name <email@domain.com>" format (indexOf-based, no regex backtracking)
+  const lt = input.indexOf('<');
+  if (lt !== -1) {
+    const gt = input.indexOf('>', lt + 1);
+    if (gt !== -1) return input.slice(lt + 1, gt).toLowerCase().trim();
+  }
 
   // Handle plain email
   const trimmed = input.trim().toLowerCase();
