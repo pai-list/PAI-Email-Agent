@@ -175,7 +175,7 @@ Cloudflare automatically creates:
 Type    Name                    Content
 MX      agents.axiomid.app      mx.cloudflare.net
 TXT     agents.axiomid.app      v=spf1 include:_spf.mx.cloudflare.net ~all
-TXT     _dmarc.agents           v=DMARC1; p=none; rua=mailto:dmarc@axiomid.app
+TXT     _dmarc.agents           v=DMARC1; p=none; rua=mailto:amrikyy@gmail.com
 ```
 
 ### Resend Configuration

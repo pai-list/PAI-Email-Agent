@@ -3,8 +3,9 @@
  */
 
 import { describe, it, expect, vi, beforeEach, afterEach } from 'vitest';
-import { calculateBackoff, mapStatusToEvent } from '../src/index.js';
-import type { WebhookEventType, EmailStatusPayload } from '../../shared/types.js';
+import { calculateBackoff } from '../src/index.js';
+import { mapStatusToEvent } from '../../shared/src/status.js';
+import type { WebhookEventType, EmailStatusPayload } from '../../shared/src/types.js';
 
 describe('Webhook Processor', () => {
   describe('calculateBackoff', () => {

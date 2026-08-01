@@ -81,30 +81,30 @@ describe('crypto utilities', () => {
   });
 
   describe('hashString', () => {
-    it('produces consistent hash for same input', () => {
-      const hash1 = hashString('test-input');
-      const hash2 = hashString('test-input');
+    it('produces consistent hash for same input', async () => {
+      const hash1 = await hashString('test-input');
+      const hash2 = await hashString('test-input');
       expect(hash1).toBe(hash2);
     });
 
-    it('produces different hashes for different inputs', () => {
-      const hash1 = hashString('input-1');
-      const hash2 = hashString('input-2');
+    it('produces different hashes for different inputs', async () => {
+      const hash1 = await hashString('input-1');
+      const hash2 = await hashString('input-2');
       expect(hash1).not.toBe(hash2);
     });
 
-    it('produces 64-character hex string (SHA-256)', () => {
-      const hash = hashString('test');
+    it('produces 64-character hex string (SHA-256)', async () => {
+      const hash = await hashString('test');
       expect(hash).toMatch(/^[a-f0-9]{64}$/);
     });
 
-    it('handles empty string', () => {
-      const hash = hashString('');
+    it('handles empty string', async () => {
+      const hash = await hashString('');
       expect(hash).toBe('e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855');
     });
 
-    it('handles unicode', () => {
-      const hash = hashString('你好世界');
+    it('handles unicode', async () => {
+      const hash = await hashString('你好世界');
       expect(hash).toMatch(/^[a-f0-9]{64}$/);
     });
   });
@@ -144,10 +144,10 @@ describe('crypto utilities', () => {
     });
 
     it('generates DMARC record with rua', () => {
-      const record = generateDMARCRecord('axiomid.app', 'dmarc@axiomid.app');
+      const record = generateDMARCRecord('axiomid.app', 'amrikyy@gmail.com');
       expect(record).toContain('v=DMARC1');
       expect(record).toContain('p=none');
-      expect(record).toContain('rua=mailto:dmarc@axiomid.app');
+      expect(record).toContain('rua=mailto:amrikyy@gmail.com');
     });
   });
 

@@ -3,8 +3,8 @@
  * Processes delivery status updates from Resend
  */
 
-import type { CloudflareEnv, ResendWebhookEvent, EmailStatusPayload } from '../../shared/types.js';
-import { verifyHMAC } from '../../shared/crypto.js';
+import type { CloudflareEnv, ResendWebhookEvent, EmailStatusPayload } from '../../shared/src/types.js';
+import { verifyHMAC } from '../../shared/src/crypto.js';
 import { updateEmailStatus, notifyAgentWebhook } from './status-tracker.js';
 
 // ──────────────────────────────────────────────────────────────
@@ -72,19 +72,27 @@ function convertResendEvent(event: ResendWebhookEvent): EmailStatusPayload {
   // Add event-specific details
   switch (event.type) {
     case 'email.bounced':
-      base.metadata.bounceType = event.data.bounce_type;
-      base.metadata.bounceCode = event.data.bounce_code;
-      base.metadata.bounceDescription = event.data.bounce_description;
+      if (base.metadata) {
+        base.metadata.bounceType = event.data.bounce_type;
+        base.metadata.bounceCode = event.data.bounce_code;
+        base.metadata.bounceDescription = event.data.bounce_description;
+      }
       break;
     case 'email.complained':
-      base.metadata.complaintFeedbackType = event.data.complaint_feedback_type;
+      if (base.metadata) {
+        base.metadata.complaintFeedbackType = event.data.complaint_feedback_type;
+      }
       break;
     case 'email.clicked':
-      base.metadata.clickLocation = event.data.click_location;
+      if (base.metadata) {
+        base.metadata.clickLocation = event.data.click_location;
+      }
       break;
     case 'email.opened':
-      base.metadata.userAgent = event.data.user_agent;
-      base.metadata.ip = event.data.ip;
+      if (base.metadata) {
+        base.metadata.userAgent = event.data.user_agent;
+        base.metadata.ip = event.data.ip;
+      }
       break;
   }
 

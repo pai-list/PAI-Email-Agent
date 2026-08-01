@@ -264,7 +264,7 @@ The worker extracts `agent-name` from `agent-name@axiomid.app` and routes to the
 
 | Address | Routes To | Note |
 |---------|-----------|------|
-| `rita@axiomid.app` | `retajabdul3zizfahmy@gmail.com` | **Hardcoded in worker — never change** |
+| `rita@axiomid.app` | `amrikyy@gmail.com` | **Hardcoded in worker — never change** |
 
 The worker has a `PROTECTED_ADDRESSES` set that preserves existing routing for these.
 

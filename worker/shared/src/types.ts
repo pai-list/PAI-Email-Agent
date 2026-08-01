@@ -20,6 +20,17 @@ export interface Attachment {
   contentId?: string; // for inline attachments
 }
 
+export interface EmailMessage {
+  from: string;
+  to: string[];
+  subject: string;
+  text?: string;
+  html?: string;
+  headers: EmailHeaders;
+  attachments: Attachment[];
+  rawSize: number;
+}
+
 export interface EmailHeaders {
   'message-id': string;
   'date': string;
@@ -204,6 +215,7 @@ export interface EmailStatusPayload {
   bounceCode?: string;
   bounceDescription?: string;
   complaintFeedbackType?: string;
+  history?: Array<{ status: EmailStatusPayload['status']; timestamp: number }>;
 }
 
 export interface WebhookRegistration {
@@ -250,6 +262,7 @@ export interface RateLimitKey {
 export interface CloudflareEnv {
   // Secrets (set via wrangler secret put)
   RESEND_API_KEY: string;
+  RESEND_API_URL: string;
   RESEND_WEBHOOK_SECRET: string;
   CF_API_TOKEN: string;
   JWT_SECRET: string;
@@ -260,6 +273,10 @@ export interface CloudflareEnv {
   JWT_ISSUER: string;
   JWT_AUDIENCE: string;
   DOMAIN: string; // e.g., "axiomid.app"
+  WEBHOOK_TIMEOUT_MS?: string;
+  WEBHOOK_MAX_RETRIES?: string;
+  WEBHOOK_RETRY_DELAY_MS?: string;
+  WEBHOOK_BATCH_SIZE?: string;
   
   // KV Namespaces
   EMAIL_KV: KVNamespace;
@@ -268,7 +285,7 @@ export interface CloudflareEnv {
   WEBHOOK_KV: KVNamespace;
   
   // Durable Objects
-  AGENT_INBOX_DO: DurableObjectNamespace<AgentInboxDO>;
+  AGENT_INBOX_DO: DurableObjectNamespace<unknown>;
   
   // Service Bindings (for worker-to-worker communication)
   EMAIL_SENDER?: Fetcher;
@@ -276,7 +293,7 @@ export interface CloudflareEnv {
 }
 
 export interface KVNamespace {
-  get(key: string, type?: 'text' | 'json' | 'arrayBuffer' | 'stream'): Promise<string | null>;
+  get<T = string>(key: string, type?: 'text' | 'json' | 'arrayBuffer' | 'stream'): Promise<T | null>;
   put(key: string, value: string | ReadableStream | ArrayBuffer, options?: { expirationTtl?: number; metadata?: unknown }): Promise<void>;
   delete(key: string): Promise<void>;
   list(options?: { prefix?: string; limit?: number; cursor?: string }): Promise<{ keys: { name: string; expiration?: number; metadata?: unknown }[]; cursor?: string }>;
@@ -302,8 +319,45 @@ export interface Fetcher {
   fetch(request: Request | string, init?: RequestInit): Promise<Response>;
 }
 
+export interface ExecutionContext {
+  waitUntil(promise: Promise<unknown>): void;
+  passThroughOnException(): void;
+}
+
+export interface ExportedHandler<Env = unknown> {
+  fetch(request: Request, env: Env, ctx: ExecutionContext): Promise<Response> | Response;
+  email?(message: ForwardableEmailMessage, env: Env, ctx: ExecutionContext): Promise<void> | void;
+  scheduled?(controller: ScheduledController, env: Env, ctx: ExecutionContext): Promise<void> | void;
+}
+
+export interface ScheduledController {
+  cron: string;
+  scheduledTime: number;
+}
+
 // ──────────────────────────────────────────────────────────────
-// Resend Webhook Types
+// Cloudflare Email Routing Types
+// ──────────────────────────────────────────────────────────────
+
+export interface ForwardableEmailMessage {
+  from: string;
+  to: string;
+  subject?: string;
+  text?: string;
+  html?: string;
+  headers: Headers;
+  attachments?: ForwardableAttachment[];
+  rawSize: number;
+}
+
+export interface ForwardableAttachment {
+  filename: string;
+  contentType: string;
+  content: string; // base64
+}
+
+// ──────────────────────────────────────────────────────────────
+// Error Types
 // ──────────────────────────────────────────────────────────────
 
 export interface ResendWebhookEvent {

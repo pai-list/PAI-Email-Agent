@@ -4,8 +4,8 @@
  */
 
 import { DurableObject } from 'cloudflare:workers';
-import type { StoredEmail, CloudflareEnv } from '../../shared/types.js';
-import { generateCorrelationId, hashEmailContent } from '../../shared/crypto.js';
+import type { StoredEmail, CloudflareEnv } from '../../shared/src/types.js';
+import { generateCorrelationId, hashEmailContent } from '../../shared/src/crypto.js';
 
 // ──────────────────────────────────────────────────────────────
 // Durable Object Class
@@ -64,7 +64,7 @@ export class AgentInboxDO extends DurableObject<CloudflareEnv> {
     }
 
     // Generate email ID from Message-ID header or content hash
-    const messageId = email.headers['message-id'] || hashEmailContent({
+    const messageId = email.headers['message-id'] || await hashEmailContent({
       from: email.from.email,
       to: email.to.map(t => t.email),
       subject: email.subject,
@@ -161,7 +161,7 @@ export class AgentInboxDO extends DurableObject<CloudflareEnv> {
   }
 
   async getEmail(emailId: string): Promise<StoredEmail | null> {
-    return this.ctx.storage.get<StoredEmail>(`${this.STORAGE_KEY_PREFIX}${emailId}`) || null;
+    return (await this.ctx.storage.get<StoredEmail>(`${this.STORAGE_KEY_PREFIX}${emailId}`)) || null;
   }
 
   async markWebhookDelivered(emailId: string): Promise<boolean> {
@@ -233,7 +233,21 @@ export class AgentInboxDO extends DurableObject<CloudflareEnv> {
 
     try {
       if (path === '/internal/store' && request.method === 'POST') {
-        const data = await request.json();
+        const data = await request.json() as {
+          correlationId: string;
+          agentName: string;
+          email: {
+            from: { name?: string; email: string };
+            to: { name?: string; email: string }[];
+            cc?: { name?: string; email: string }[];
+            subject: string;
+            text?: string;
+            html?: string;
+            headers: Record<string, string>;
+            attachments: Array<{ filename: string; contentType: string; content: string; size: number }>;
+            rawSize: number;
+          };
+        };
         const result = await this.storeEmail(data);
         return Response.json(result);
       }
