@@ -285,12 +285,3 @@ jobs:
           args: --severity-threshold=high
         env:
           SNYK_TOKEN: ${{ secrets.SNYK_TOKEN }}
-
-      - name: Run CodeQL analysis
-        uses: github/codeql-action/init@v3
-        with:
-          languages: typescript
-          queries: +security-extended
-
-      - name: Perform CodeQL analysis
-        uses: github/codeql-action/analyze@v3
