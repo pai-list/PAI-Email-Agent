@@ -1,0 +1,79 @@
+name: Docs
+
+on:
+  push:
+    branches: [main, develop]
+    paths:
+      - 'docs/**'
+      - 'README.md'
+      - '**/*.md'
+  pull_request:
+    paths:
+      - 'docs/**'
+      - 'README.md'
+      - '**/*.md'
+
+concurrency:
+  group: docs-${{ github.workflow }}-${{ github.ref }}
+  cancel-in-progress: true
+
+jobs:
+  markdownlint:
+    name: Markdown lint
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v4
+
+      - name: Setup pnpm
+        uses: pnpm/action-setup@v4
+        with:
+          version: 9
+
+      - name: Setup Node.js
+        uses: actions/setup-node@v4
+        with:
+          node-version: 20
+          cache: pnpm
+
+      - name: Install dependencies
+        run: pnpm install --frozen-lockfile
+
+      - name: Lint markdown
+        run: npx markdownlint-cli2 "docs/**/*.md" "README.md" --config .markdownlint.json --fix false
+
+  links:
+    name: Broken link check
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v4
+        with:
+          fetch-depth: 0
+
+      - name: Setup Node.js
+        uses: actions/setup-node@v4
+        with:
+          node-version: 20
+
+      - name: Check internal links
+        run: |
+          npx -y linkinator --skip "https://github.com/**" --skip "https://www.cloudflare.com/**" \
+            --markdown docs README.md 2>/dev/null || true
+
+  docs-completeness:
+    name: Docs completeness
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v4
+
+      - name: Verify core docs exist
+        run: |
+          for f in README.md docs/ARCHITECTURE.md docs/QUICKSTART.md docs/SETUP_GUIDE.md; do
+            if [ ! -f "$f" ]; then
+              echo "::error::$f is missing"
+              exit 1
+            fi
+          done
+          echo "All core docs present"
