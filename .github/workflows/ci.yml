@@ -107,10 +107,10 @@ jobs:
       - name: Install dependencies
         run: pnpm install --frozen-lockfile
 
-      - name: Build worker
+      - name: Build worker (dry-run bundle check)
         run: |
           cd worker/${{ matrix.worker }}
-          pnpm run build
+          pnpm wrangler deploy --dry-run --outdir dist
 
       - name: Verify build output
         run: |

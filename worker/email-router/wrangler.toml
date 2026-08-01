@@ -45,8 +45,6 @@ class_name = "AgentInboxDO"
 email = true
 
 # Build
-[build]
-command = "npm run build"
 
 # [env.staging]
 # [env.production]

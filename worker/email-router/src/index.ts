@@ -182,6 +182,8 @@ function deliverWebhookAsync(
 // Export
 // ──────────────────────────────────────────────────────────────
 
+export { AgentInboxDO } from './storage.js';
+
 export default {
   async fetch(request: Request, env: CloudflareEnv, ctx: ExecutionContext): Promise<Response> {
     return router.handle(request, env, ctx) || new Response('Not Found', { status: 404 });
