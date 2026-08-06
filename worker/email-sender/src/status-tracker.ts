@@ -3,8 +3,9 @@
  * Tracks delivery status and notifies agent webhooks
  */
 
-import type { CloudflareEnv, EmailStatusPayload, WebhookEventType } from '../../shared/types.js';
-import { generateWebhookSignature } from '../../shared/crypto.js';
+import type { CloudflareEnv, EmailStatusPayload, WebhookEventType } from '../../shared/src/types.js';
+import { generateWebhookSignature } from '../../shared/src/crypto.js';
+import { mapStatusToEvent } from '../../shared/src/status.js';
 
 // ──────────────────────────────────────────────────────────────
 // KV Keys
@@ -71,6 +72,15 @@ interface AgentWebhookConfig {
   retryDelayMs: number;
 }
 
+interface StoredWebhookConfig {
+  webhookUrl: string;
+  webhookSecret: string;
+  webhookEvents?: WebhookEventType[];
+  webhookTimeoutMs?: number;
+  webhookMaxRetries?: number;
+  webhookRetryDelayMs?: number;
+}
+
 export async function notifyAgentWebhook(
   env: CloudflareEnv,
   messageId: string,
@@ -100,7 +110,7 @@ export async function notifyAgentWebhook(
     event: eventType,
     timestamp,
     correlationId,
-    payload: { messageId, ...status },
+    payload: status,
   };
 
   const signature = generateWebhookSignature(payload, config.secret, timestamp);
@@ -113,7 +123,7 @@ async function getAgentWebhookConfig(
   env: CloudflareEnv,
   agentName: string
 ): Promise<AgentWebhookConfig | null> {
-  const data = await env.AGENT_KV.get(AGENT_WEBHOOK_CONFIG_KEY(agentName), 'json');
+  const data = await env.AGENT_KV.get<StoredWebhookConfig>(AGENT_WEBHOOK_CONFIG_KEY(agentName), 'json');
   if (!data) return null;
   
   return {
@@ -169,17 +179,5 @@ async function deliverWithRetry(
     const delay = config.retryDelayMs * Math.pow(2, attempt - 1);
     await new Promise(resolve => setTimeout(resolve, delay));
     return deliverWithRetry(config, payload, correlationId, attempt + 1);
-  }
-}
-
-function mapStatusToEvent(status: EmailStatusPayload['status']): WebhookEventType {
-  switch (status) {
-    case 'delivered': return 'email.delivered';
-    case 'bounced': return 'email.bounced';
-    case 'complained': return 'email.complained';
-    case 'opened': return 'email.opened';
-    case 'clicked': return 'email.clicked';
-    case 'unsubscribed': return 'email.unsubscribed';
-    default: return 'email.delivered';
   }
 }

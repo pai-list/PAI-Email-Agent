@@ -1,11 +1,18 @@
 {
-  "extends": "../../../tsconfig.json",
   "compilerOptions": {
-    "types": ["@cloudflare/workers-types"],
-    "baseUrl": ".",
-    "paths": {
-      "@pai/email-shared/*": ["../../shared/*"]
-    }
+    "target": "ES2024",
+    "module": "ESNext",
+    "moduleResolution": "Bundler",
+    "lib": ["ES2024"],
+    "strict": true,
+    "skipLibCheck": true,
+    "esModuleInterop": true,
+    "allowSyntheticDefaultImports": true,
+    "forceConsistentCasingInFileNames": true,
+    "resolveJsonModule": true,
+    "isolatedModules": true,
+    "noEmit": true,
+    "types": ["@cloudflare/workers-types"]
   },
   "include": ["src/**/*", "worker-configuration.d.ts"],
   "exclude": ["node_modules", "dist", ".wrangler"]

@@ -1,0 +1,59 @@
+# CodeRabbit AI review configuration
+# https://docs.coderabbit.ai/integrations/coderabbit-config
+
+language: en-US
+tone_instructions: |
+  Be concise, technical, and actionable. Prefer concrete code suggestions over generic advice.
+early_access: false
+reviews:
+  profile: assertive
+  request_changes_workflow: true
+  high_level_summary: true
+  high_level_summary_placeholder: "@coderabbitai summary"
+  poem: false
+  review_status: true
+  collapse_walkthrough: true
+  auto_review:
+    enabled: true
+    drafts: false
+    base_branches:
+      - main
+      - develop
+    labels:
+      - coderabbit
+    path_instructions:
+      - path: "worker/**"
+        instructions: |
+          These are Cloudflare Workers. Review for runtime compatibility
+          (no Node-only globals), correct bindings usage, and KV/D1 durability
+          patterns. Flag unhandled promise rejections.
+      - path: "docs/**"
+        instructions: |
+          Documentation updates should match the repository's actual behavior.
+          Flag any docs that reference endpoints, env vars, or setup steps that
+          no longer exist in code.
+  auto_review_behavior: new_commits
+  use_bot_identity: false
+chat:
+  auto_reply: true
+tools:
+  markdownlint:
+    enabled: true
+    fix: false
+  shellcheck:
+    enabled: true
+  jscpd:
+    enabled: true
+    config:
+      minLines: 40
+      minTokens: 150
+  coverage:
+    enabled: false
+symbols:
+  - path: "**/*.ts"
+    type: typescript
+languages:
+  - typescript
+  - json
+  - yaml
+  - markdown

@@ -3,8 +3,8 @@
  * Delivers emails to agent's webhook endpoint with HMAC signature
  */
 
-import type { CloudflareEnv, StoredEmail, AgentRegistration } from '../../shared/types.js';
-import { generateCorrelationId, generateWebhookSignature } from '../../shared/crypto.js';
+import type { CloudflareEnv, StoredEmail, AgentRegistration } from '../../shared/src/types.js';
+import { generateCorrelationId, generateWebhookSignature } from '../../shared/src/crypto.js';
 
 // ──────────────────────────────────────────────────────────────
 // Types

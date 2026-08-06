@@ -27,7 +27,3 @@ preview_id = "<AGENT_KV_PREVIEW_ID>"
 binding = "WEBHOOK_KV"
 id = "<WEBHOOK_KV_ID>"
 preview_id = "<WEBHOOK_KV_PREVIEW_ID>"
-
-# Build
-[build]
-command = "npm run build"

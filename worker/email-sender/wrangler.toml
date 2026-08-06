@@ -35,8 +35,6 @@ preview_id = "<RATE_LIMIT_KV_PREVIEW_ID>"
 # email_router = "pai-email-router"
 
 # Build
-[build]
-command = "npm run build"
 
 # [env.staging]
 # [env.production]

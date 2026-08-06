@@ -4,9 +4,9 @@
  * Processes webhook delivery queue, handles retries, batching, and dead letter queue
  */
 
-import { Router } from 'itty-router';
-import type { CloudflareEnv, WebhookEventType, StoredEmail } from '../../shared/types.js';
-import { generateCorrelationId } from '../../shared/crypto.js';
+import { Router, type IRequest } from 'itty-router';
+import type { CloudflareEnv, WebhookEventType, StoredEmail, ScheduledController } from '../../shared/src/types.js';
+import { generateCorrelationId } from '../../shared/src/crypto.js';
 
 // ──────────────────────────────────────────────────────────────
 // Types
@@ -33,11 +33,20 @@ interface WebhookConfig {
   retryDelayMs: number;
 }
 
+interface StoredWebhookConfig {
+  webhookUrl: string;
+  webhookSecret: string;
+  webhookEvents?: WebhookEventType[];
+  webhookTimeoutMs?: number;
+  webhookMaxRetries?: number;
+  webhookRetryDelayMs?: number;
+}
+
 // ──────────────────────────────────────────────────────────────
 // Main Handler
 // ──────────────────────────────────────────────────────────────
 
-const router = Router<Request, CloudflareEnv>();
+const router = Router<IRequest, [CloudflareEnv, ExecutionContext]>();
 
 router.get('/health', () => new Response('OK', { status: 200 }));
 
@@ -95,7 +104,7 @@ export default {
   },
 
   // Cron trigger handler
-  async scheduled(event: ScheduledEvent, env: CloudflareEnv, ctx: ExecutionContext): Promise<void> {
+  async scheduled(controller: ScheduledController, env: CloudflareEnv, ctx: ExecutionContext): Promise<void> {
     const correlationId = generateCorrelationId();
     const batchSize = parseInt(env.WEBHOOK_BATCH_SIZE || '10', 10);
     await processWebhookQueue(env, batchSize, correlationId);
@@ -180,7 +189,7 @@ async function deliverWebhook(
   // Generate signature for payload
   // Note: In production, use the shared crypto module
   const payload = {
-    ...webhook.payload,
+    ...(webhook.payload as Record<string, unknown>),
     _meta: {
       correlationId,
       timestamp,
@@ -218,15 +227,16 @@ async function deliverWebhook(
   }
 }
 
-function calculateBackoff(attempt: number): number {
+export function calculateBackoff(attempt: number): number {
   // Exponential backoff: 1s, 2s, 4s, 8s, 16s, 32s, 64s... max 5 minutes
   const base = 1000;
   const max = 5 * 60 * 1000;
-  return Math.min(base * Math.pow(2, attempt - 1), max);
+  const effective = Math.max(attempt, 1);
+  return Math.min(base * Math.pow(2, effective - 1), max);
 }
 
 async function getWebhookConfig(env: CloudflareEnv, agentName: string): Promise<WebhookConfig | null> {
-  const data = await env.AGENT_KV.get(CONFIG_KEY(agentName), 'json');
+  const data = await env.AGENT_KV.get<StoredWebhookConfig>(CONFIG_KEY(agentName), 'json');
   if (!data) return null;
 
   return {

@@ -2,8 +2,8 @@
  * Email sending logic via Resend API
  */
 
-import type { CloudflareEnv, SendEmailRequest, SendEmailResponse, AgentPassportClaims, ResendEmailPayload, ResendResponse } from '../../shared/types.js';
-import { generateCorrelationId, hashEmailContent } from '../../shared/crypto.js';
+import type { CloudflareEnv, SendEmailRequest, SendEmailResponse, AgentPassportClaims, ResendEmailPayload, ResendResponse } from '../../shared/src/types.js';
+import { generateCorrelationId, hashEmailContent } from '../../shared/src/crypto.js';
 
 // ──────────────────────────────────────────────────────────────
 // Rate Limiting
@@ -167,6 +167,8 @@ export async function sendEmailViaResend(
   const payload: ResendEmailPayload = {
     from: `${fromName} <${fromEmail}>`,
     to: Array.isArray(request.to) ? request.to : [request.to],
+    cc: request.cc ? (Array.isArray(request.cc) ? request.cc : [request.cc]) : undefined,
+    bcc: request.bcc ? (Array.isArray(request.bcc) ? request.bcc : [request.bcc]) : undefined,
     subject: request.subject,
     text: request.text,
     html: request.html,
@@ -233,11 +235,11 @@ export async function sendEmailViaResend(
 // Idempotency Key Generation
 // ──────────────────────────────────────────────────────────────
 
-export function generateIdempotencyKey(
+export async function generateIdempotencyKey(
   agentName: string,
   request: SendEmailRequest
-): string {
-  const contentHash = hashEmailContent({
+): Promise<string> {
+  const contentHash = await hashEmailContent({
     from: agentName,
     to: Array.isArray(request.to) ? request.to : [request.to],
     subject: request.subject,

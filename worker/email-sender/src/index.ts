@@ -4,17 +4,17 @@
  * Sends emails via Resend API with agent authentication, rate limiting, and webhook tracking
  */
 
-import { Router } from 'itty-router';
-import { verifyJWT } from '../../shared/crypto.js';
+import { Router, type IRequest } from 'itty-router';
+import { verifyJWT } from '../../shared/src/crypto.js';
 import { sendEmailViaResend, validateSendRequest, checkRateLimit, recordEmailSent } from './sender.js';
 import { handleResendWebhook } from './resend-webhook.js';
-import type { CloudflareEnv, SendEmailRequest, SendEmailResponse, AgentPassportClaims } from '../../shared/types.js';
+import type { CloudflareEnv, SendEmailRequest, SendEmailResponse, AgentPassportClaims } from '../../shared/src/types.js';
 
 // ──────────────────────────────────────────────────────────────
 // Main Handler
 // ──────────────────────────────────────────────────────────────
 
-const router = Router<Request, CloudflareEnv>();
+const router = Router<IRequest, [CloudflareEnv, ExecutionContext]>();
 
 // Health check
 router.get('/health', () => new Response('OK', { status: 200 }));

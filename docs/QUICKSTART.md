@@ -107,7 +107,7 @@ await email.sendEmail({
 
 | Address | Routes To | Note |
 |---------|-----------|------|
-| `rita@axiomid.app` | `retajabdul3zizfahmy@gmail.com` | Hardcoded in worker |
+| `rita@axiomid.app` | `amrikyy@gmail.com` | Hardcoded in worker |
 
 ---
 

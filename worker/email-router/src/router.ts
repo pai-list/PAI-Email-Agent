@@ -2,7 +2,7 @@
  * Email parsing and routing utilities
  */
 
-import type { EmailMessage, EmailHeaders, EmailAddress } from '@pai/email-shared/types.js';
+import type { EmailMessage, EmailHeaders, EmailAddress } from '../../shared/src/types.js';
 
 // ──────────────────────────────────────────────────────────────
 // Agent Name Extraction
@@ -23,15 +23,23 @@ export function extractAgentName(recipients: string[]): string | null {
   return null;
 }
 
+export function validateAgentEmail(email: string): boolean {
+  const agentName = extractAgentName([email]);
+  return agentName !== null;
+}
+
 function extractEmailAddress(input: string): string | null {
-  // Handle "Name <email@domain.com>" format
-  const match = input.match(/<([^>]+)>/);
-  if (match) return match[1].toLowerCase().trim();
-  
+  // Handle "Name <email@domain.com>" format (indexOf-based, no regex backtracking)
+  const lt = input.indexOf('<');
+  if (lt !== -1) {
+    const gt = input.indexOf('>', lt + 1);
+    if (gt !== -1) return input.slice(lt + 1, gt).toLowerCase().trim();
+  }
+
   // Handle plain email
   const trimmed = input.trim().toLowerCase();
   if (trimmed.includes('@')) return trimmed;
-  
+
   return null;
 }
 
@@ -61,7 +69,7 @@ export function parseEmailMessage(raw: EmailMessage): {
   }>;
 } {
   // Parse From
-  const from = parseEmailAddress(raw.from);
+  const from = parseEmailAddress(raw.from) || { email: raw.from };
   
   // Parse To
   const to = raw.to.map(parseEmailAddress).filter(Boolean) as EmailAddress[];
@@ -71,7 +79,7 @@ export function parseEmailMessage(raw: EmailMessage): {
   const cc = ccHeader.split(',').map(parseEmailAddress).filter(Boolean) as EmailAddress[];
   
   // Normalize headers
-  const headers: EmailHeaders = {};
+  const headers: EmailHeaders = {} as EmailHeaders;
   for (const [key, value] of Object.entries(raw.headers)) {
     headers[key.toLowerCase()] = value;
   }
